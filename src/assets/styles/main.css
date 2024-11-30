@@ -1,0 +1,128 @@
+/* 添加全局样式 */
+:root {
+  --gradient-start: #E8D5D5;  /* 柔和的灰粉色 */
+  --gradient-end: #00000096;    /* 柔和的灰蓝色 */
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --text-primary: #000000;    /* 改为纯黑色 */
+  --text-secondary: #4A4A4A;
+  --transition-speed: 0.5s;     /* 更新过渡时间为3秒 */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    var(--gradient-start) 0%,
+    #f5cfe2 25%,    /* 莫兰迪粉褐色 */
+     #d7d3e4 50%,    /* 莫兰迪蓝灰色 */
+    #ffe4d9 75%,    /* 莫兰迪浅粉色 */
+    var(--gradient-end) 100%
+  );
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: '仓耳今楷', 'TsangerJinKai', '楷体', 'KaiTi', '华文楷体', 'STKaiti', serif;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 3s ease-out;
+}
+
+.slide-up-enter-from {
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+.slide-up-leave-to {
+  transform: translateY(-30px);
+  opacity: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* 添加标题动画样式 */
+@keyframes titleColorShade {
+  0% {
+    text-shadow: none;
+    color: #000;
+  }
+  50% {
+    text-shadow: 
+      2px 2px 4px #D8B4B4,
+      -2px -2px 4px #C7CCDB,
+      2px -2px 4px #E6D5D5;
+    color: #000;
+  }
+  100% {
+    text-shadow: none;
+    color: #000;
+  }
+}
+
+/* 为标题添加动画效果 */
+h1{
+  animation: titleColorShade var(--transition-speed) infinite;
+}

@@ -1,4 +1,4 @@
-# jubensha-review
+# script-review
 
 ## Project setup
 ```
