@@ -159,7 +159,7 @@ export default {
 
 .field-label {
   font-weight: 600;
-  color: var(--gradient-end);
+  color: #0000008a;
   opacity: 0.8;
   margin-right: 8px;
 }
@@ -197,12 +197,12 @@ button {
 }
 
 .edit-btn {
-  background: linear-gradient(135deg, #FFB88C, #DE6262);
+  background: linear-gradient(135deg, #f9c5a5, #f0b6eb);
   color: white;
 }
 
 .delete-btn {
-  background: linear-gradient(135deg, #FF9A9E, #FAD0C4);
+  background: linear-gradient(135deg, #eb4f54, #FAD0C4);
   color: var(--text-secondary);
 }
 

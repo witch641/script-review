@@ -142,15 +142,7 @@ export default {
   z-index: 1000;
 }
 
-.form-container {
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
+
 
 .form-group {
   margin-bottom: 15px;
@@ -196,12 +188,12 @@ button {
 }
 
 .submit-btn {
-  background: #3498db;
+  background: linear-gradient(135deg, #f9c5a5, #f0b6eb);
   color: white;
 }
 
 .cancel-btn {
-  background: #e74c3c;
+  background: linear-gradient(135deg, #eb4f54, #FAD0C4);
   color: white;
 }
 
