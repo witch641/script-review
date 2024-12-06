@@ -1,7 +1,10 @@
 <template>
   <div class="add-game">
-    <h2>添加记录</h2>
-    <GameForm @submit="addGame" />
+    <h2>{{ isEditing ? '编辑记录' : '添加记录' }}</h2>
+    <GameForm 
+      @submit="handleSubmit"
+      :initialData="editingRecord"
+    />
   </div>
 </template>
 
@@ -12,9 +15,29 @@ export default {
   components: {
     GameForm
   },
+  data() {
+    return {
+      editingRecord: null,
+      isEditing: false
+    }
+  },
+  created() {
+    const recordId = this.$route.params.id
+    if (recordId) {
+      this.isEditing = true
+      this.editingRecord = this.$store.getters.getRecordById(recordId)
+    }
+  },
   methods: {
-    addGame(gameData) {
-      this.$store.dispatch('addGame', gameData)
+    handleSubmit(recordData) {
+      if (this.isEditing) {
+        this.$store.dispatch('updateRecord', {
+          id: this.$route.params.id,
+          ...recordData
+        })
+      } else {
+        this.$store.commit('addRecord', recordData)
+      }
       this.$router.push('/')
     }
   }

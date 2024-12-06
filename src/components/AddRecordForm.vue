@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="submit-btn">{{ isEditing ? '保存修改' : '添加记录' }}</button>
+          <button type="submit" class="submit-btn">{{ isEditing ? '保存修改' : '保存修改' }}</button>
           <button type="button" class="cancel-btn" @click="$emit('close')">取消</button>
         </div>
       </form>

@@ -42,7 +42,7 @@
         <textarea v-model="gameData.summary" rows="4"></textarea>
       </div>
 
-      <button type="submit">保存记录</button>
+      <button type="submit" >{{ isEditing ? '保存修改' : '保存修改' }}</button>
     </form>
   </div>
 </template>
@@ -52,7 +52,12 @@ export default {
   props: {
     initialData: {
       type: Object,
-      default: () => ({
+      default: () => null
+    }
+  },
+  data() {
+    return {
+      gameData: {
         name: '',
         mood: '开心',
         playTime: '',
@@ -60,12 +65,12 @@ export default {
         players: '',
         clues: '',
         summary: ''
-      })
+      }
     }
   },
-  data() {
-    return {
-      gameData: { ...this.initialData }
+  created() {
+    if (this.initialData) {
+      this.gameData = { ...this.initialData }
     }
   },
   methods: {
@@ -100,11 +105,18 @@ input, select, textarea {
 }
 
 button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
+  background: linear-gradient(135deg, #d29fc3, #FAD0C4);
+  color: var(--text-secondary);
+  padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all var(--transition-speed);
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 </style> 

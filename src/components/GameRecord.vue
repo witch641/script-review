@@ -52,7 +52,7 @@ function formatDate(date) {
     </div>
     
     <div class="record-actions">
-      <button class="edit-btn" @click="$emit('edit', record.id)">编辑</button>
+      <button class="edit-btn" @click="handleEdit">编辑</button>
       <button class="delete-btn" @click="$emit('delete', record.id)">删除</button>
     </div>
   </div>
@@ -95,6 +95,11 @@ export default {
         '收获颇丰': 'mood-fulfilled'
       };
       return moodClasses[this.record.mood] || 'mood-default';
+    }
+  },
+  methods: {
+    handleEdit() {
+      this.$router.push(`/edit/${this.record.id}`);
     }
   }
 }

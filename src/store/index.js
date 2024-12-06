@@ -22,6 +22,12 @@ export default createStore({
 
         return searchableFields.some(field => field.includes(query));
       });
+    },
+    getGameById: (state) => (id) => {
+      return state.games.find(game => game.id === id)
+    },
+    getRecordById: (state) => (id) => {
+      return state.records.find(record => record.id === String(id))
     }
   },
   mutations: {
@@ -47,6 +53,26 @@ export default createStore({
       if (index !== -1) {
         state.records.splice(index, 1);
       }
+    },
+    UPDATE_GAME(state, gameData) {
+      const index = state.games.findIndex(game => game.id === gameData.id)
+      if (index !== -1) {
+        state.games[index] = { ...state.games[index], ...gameData }
+      }
+    },
+    updateRecord(state, updatedRecord) {
+      const index = state.records.findIndex(record => record.id === updatedRecord.id)
+      if (index !== -1) {
+        state.records[index] = { ...state.records[index], ...updatedRecord }
+      }
+    }
+  },
+  actions: {
+    updateGame({ commit }, gameData) {
+      commit('UPDATE_GAME', gameData)
+    },
+    updateRecord({ commit }, recordData) {
+      commit('updateRecord', recordData)
     }
   }
 })
