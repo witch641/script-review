@@ -2,6 +2,7 @@
   <div class="add-game">
     <h2>{{ isEditing ? '编辑记录' : '添加记录' }}</h2>
     <GameForm 
+      v-if="formReady"
       @submit="handleSubmit"
       :initialData="editingRecord"
     />
@@ -18,7 +19,8 @@ export default {
   data() {
     return {
       editingRecord: null,
-      isEditing: false
+      isEditing: false,
+      formReady: false
     }
   },
   created() {
@@ -26,14 +28,21 @@ export default {
     if (recordId) {
       this.isEditing = true
       this.editingRecord = this.$store.getters.getRecordById(recordId)
+      
+      // 如果找不到记录，返回首页
+      if (!this.editingRecord) {
+        this.$router.push('/')
+        return
+      }
     }
+    this.formReady = true
   },
   methods: {
     handleSubmit(recordData) {
       if (this.isEditing) {
         this.$store.dispatch('updateRecord', {
-          id: this.$route.params.id,
-          ...recordData
+          ...recordData,
+          id: this.$route.params.id
         })
       } else {
         this.$store.commit('addRecord', recordData)

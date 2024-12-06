@@ -3,7 +3,7 @@
     <form @submit.prevent="submitForm">
       <div class="form-group">
         <label>游戏名称</label>
-        <input v-model="gameData.name" required>
+        <input v-model="gameData.gameName" required>
       </div>
       
       <div class="form-group">
@@ -19,7 +19,7 @@
 
       <div class="form-group">
         <label>游戏时间</label>
-        <input type="datetime-local" v-model="gameData.playTime" required>
+        <input type="datetime-local" v-model="gameData.gameTime" required>
       </div>
 
       <div class="form-group">
@@ -34,7 +34,7 @@
 
       <div class="form-group">
         <label>关键线索</label>
-        <textarea v-model="gameData.clues" rows="4"></textarea>
+        <textarea v-model="gameData.keyPoints" rows="4"></textarea>
       </div>
 
       <div class="form-group">
@@ -42,7 +42,7 @@
         <textarea v-model="gameData.summary" rows="4"></textarea>
       </div>
 
-      <button type="submit" >{{ isEditing ? '保存修改' : '保存修改' }}</button>
+      <button type="submit">{{ isEditing ? '保存修改' : '保存' }}</button>
     </form>
   </div>
 </template>
@@ -58,24 +58,67 @@ export default {
   data() {
     return {
       gameData: {
-        name: '',
+        gameName: '',
         mood: '开心',
-        playTime: '',
+        gameTime: this.formatDateForInput(new Date()),
         playerCount: 0,
         players: '',
-        clues: '',
+        keyPoints: '',
         summary: ''
       }
     }
   },
   created() {
     if (this.initialData) {
-      this.gameData = { ...this.initialData }
+      this.gameData = {
+        gameName: this.initialData.gameName || '',
+        mood: this.initialData.mood || '开心',
+        gameTime: this.formatDateForInput(new Date(this.initialData.gameTime)),
+        playerCount: Number(this.initialData.playerCount) || 0,
+        players: this.initialData.players || '',
+        keyPoints: this.initialData.keyPoints || '',
+        summary: this.initialData.summary || ''
+      }
+    }
+  },
+  watch: {
+    initialData: {
+      handler(newVal) {
+        if (newVal) {
+          this.gameData = {
+            gameName: newVal.gameName || '',
+            mood: newVal.mood || '开心',
+            gameTime: this.formatDateForInput(new Date(newVal.gameTime)),
+            playerCount: Number(newVal.playerCount) || 0,
+            players: newVal.players || '',
+            keyPoints: newVal.keyPoints || '',
+            summary: newVal.summary || ''
+          }
+        }
+      },
+      deep: true
     }
   },
   methods: {
+    formatDateForInput(date) {
+      if (!date || isNaN(date.getTime())) return '';
+      
+      // 格式化为 YYYY-MM-DDThh:mm
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    },
     submitForm() {
-      this.$emit('submit', this.gameData)
+      const formData = {
+        ...this.gameData,
+        playerCount: Number(this.gameData.playerCount),
+        gameTime: new Date(this.gameData.gameTime).toISOString()
+      };
+      this.$emit('submit', formData)
     }
   }
 }

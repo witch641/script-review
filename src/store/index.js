@@ -27,7 +27,7 @@ export default createStore({
       return state.games.find(game => game.id === id)
     },
     getRecordById: (state) => (id) => {
-      return state.records.find(record => record.id === String(id))
+      return state.records.find(record => String(record.id) === String(id)) || null;
     }
   },
   mutations: {
@@ -36,12 +36,12 @@ export default createStore({
     },
     addRecord(state, record) {
       const newRecord = {
-        id: Date.now(),
+        id: Date.now().toString(),
         gameTime: new Date().toISOString(),
         gameName: record.gameName || '',
         mood: record.mood || '',
+        playerCount: record.playerCount || 0,
         players: record.players || '',
-        participants: record.participants || '',
         keyPoints: record.keyPoints || '',
         summary: record.summary || '',
         ...record
