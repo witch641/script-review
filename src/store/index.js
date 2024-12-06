@@ -1,8 +1,12 @@
 import { createStore } from 'vuex'
 
+// 从 localStorage 获取保存的数据
+const savedRecords = localStorage.getItem('gameRecords')
+const initialRecords = savedRecords ? JSON.parse(savedRecords) : []
+
 export default createStore({
   state: {
-    records: [],
+    records: initialRecords,  // 使用保存的数据初始化
     searchQuery: ''
   },
   getters: {
@@ -22,9 +26,6 @@ export default createStore({
 
         return searchableFields.some(field => field.includes(query));
       });
-    },
-    getGameById: (state) => (id) => {
-      return state.games.find(game => game.id === id)
     },
     getRecordById: (state) => (id) => {
       return state.records.find(record => String(record.id) === String(id)) || null;
@@ -47,30 +48,27 @@ export default createStore({
         ...record
       };
       state.records.push(newRecord);
+      // 保存到 localStorage
+      localStorage.setItem('gameRecords', JSON.stringify(state.records));
     },
     deleteRecord(state, id) {
       const index = state.records.findIndex(record => record.id === id);
       if (index !== -1) {
         state.records.splice(index, 1);
-      }
-    },
-    UPDATE_GAME(state, gameData) {
-      const index = state.games.findIndex(game => game.id === gameData.id)
-      if (index !== -1) {
-        state.games[index] = { ...state.games[index], ...gameData }
+        // 保存到 localStorage
+        localStorage.setItem('gameRecords', JSON.stringify(state.records));
       }
     },
     updateRecord(state, updatedRecord) {
       const index = state.records.findIndex(record => record.id === updatedRecord.id)
       if (index !== -1) {
         state.records[index] = { ...state.records[index], ...updatedRecord }
+        // 保存到 localStorage
+        localStorage.setItem('gameRecords', JSON.stringify(state.records));
       }
     }
   },
   actions: {
-    updateGame({ commit }, gameData) {
-      commit('UPDATE_GAME', gameData)
-    },
     updateRecord({ commit }, recordData) {
       commit('updateRecord', recordData)
     }

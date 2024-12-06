@@ -150,7 +150,7 @@ export default {
 .mood-happy { background: linear-gradient(135deg, #e6a9d0, hsl(316, 66%, 87%)); }
 .mood-nervous { background: linear-gradient(135deg, #FFD93D, #FFA41B); }
 .mood-sad { background: linear-gradient(135deg, #d3865c, #e5b5a0); }
-.mood-anxious { background: linear-gradient(135deg, #f1e152, #f4f68a); }
+.mood-anxious { background: linear-gradient(135deg, #f1e152, #cccd8ab5); }
 .mood-fulfilled { background: linear-gradient(135deg,  #ec9699, #ecaeae); }
 
 .record-field {
