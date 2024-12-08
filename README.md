@@ -1,19 +1,71 @@
-npm run serve
-npm run build
+### Improved README.md
 
-#  GitHub Pages 通常使用 gh-pages 分支作为托管分支
+```markdown
+# Script Review
+
+This repository contains a script review project. Below are the instructions for setting up and deploying the project using GitHub Pages.
+
+## Getting Started
+
+### Install Dependencies
+To install the necessary dependencies, run:
+```sh
+npm install
+```
+
+### Running the Development Server
+To start the development server, run:
+```sh
+npm run serve
+```
+
+### Building the Project
+To build the project for production, run:
+```sh
+npm run build
+```
+
+## GitHub Pages Deployment
+
+GitHub Pages typically uses the `gh-pages` branch for hosting. Follow the steps below to deploy your project:
+
+### Install `gh-pages`
+To install the `gh-pages` package globally, run:
+```sh
 npm install -g gh-pages
+```
+
+### Build and Deploy
+After building the project, deploy it using `gh-pages`:
+```sh
 npm run build
 npx gh-pages -d dist
+```
 
-#  在 Source下拉菜单中选择 gh-pages 分支并保存
+### Configure GitHub Pages
+In the repository settings, under the "Source" dropdown menu, select the `gh-pages` branch and save the settings.
 
-#  检查 Vue 项目路径
-Vue 项目在 GitHub Pages 上可能需要配置正确的 publicPath，否则可能无法正确加载资源文件
+## Vue Project Configuration
 
-打开 vue.config.js 文件（如果没有就创建一个）
-#  添加以下内容：
+Ensure the Vue project is configured correctly for GitHub Pages. You may need to set the `publicPath` in your `vue.config.js` file to ensure resources load correctly.
+
+### Create/Edit `vue.config.js`
+Add the following content to `vue.config.js`:
+```js
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/script-review/' : '/'
 }
-#  重新运行 npm run build 并重新部署
+```
+
+After making these changes, rebuild and redeploy the project:
+```sh
+npm run build
+npx gh-pages -d dist
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+
+Let me know if you need any further modifications or additions.
