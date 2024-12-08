@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-          <label>参与者姓名：</label>
+          <label>参与者：</label>
           <input type="text" v-model="form.participants" placeholder="请用逗号分隔多个参与者">
         </div>
 
@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="submit-btn">{{ isEditing ? '保存修改' : '保存修改' }}</button>
+          <button type="submit" class="submit-btn">{{ isEditing ? '保存记录' : '保存' }}</button>
           <button type="button" class="cancel-btn" @click="$emit('close')">取消</button>
         </div>
       </form>

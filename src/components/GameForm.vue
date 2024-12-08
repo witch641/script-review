@@ -24,12 +24,17 @@
 
       <div class="form-group">
         <label>玩家人数</label>
-        <input type="number" v-model="gameData.playerCount" required>
+        <input 
+          type="number" 
+          v-model.number="gameData.playerCount"
+          min="0"
+          required
+        >
       </div>
 
       <div class="form-group">
-        <label>参与者姓名</label>
-        <input v-model="gameData.players" placeholder="用逗号分隔玩家姓名">
+        <label>参与者</label>
+        <input v-model="gameData.participants" placeholder="用逗号分隔玩家姓名">
       </div>
 
       <div class="form-group">
@@ -42,7 +47,7 @@
         <textarea v-model="gameData.summary" rows="4"></textarea>
       </div>
 
-      <button type="submit">{{ isEditing ? '保存修改' : '保存' }}</button>
+      <button type="submit">{{ isEditing ? '保存记录' : '保存' }}</button>
     </form>
   </div>
 </template>
@@ -62,7 +67,7 @@ export default {
         mood: '开心',
         gameTime: this.formatDateForInput(new Date()),
         playerCount: 0,
-        players: '',
+        participants: '',
         keyPoints: '',
         summary: ''
       }
@@ -75,7 +80,7 @@ export default {
         mood: this.initialData.mood || '开心',
         gameTime: this.formatDateForInput(new Date(this.initialData.gameTime)),
         playerCount: Number(this.initialData.playerCount) || 0,
-        players: this.initialData.players || '',
+        participants: this.initialData.participants || '',
         keyPoints: this.initialData.keyPoints || '',
         summary: this.initialData.summary || ''
       }
@@ -90,7 +95,7 @@ export default {
             mood: newVal.mood || '开心',
             gameTime: this.formatDateForInput(new Date(newVal.gameTime)),
             playerCount: Number(newVal.playerCount) || 0,
-            players: newVal.players || '',
+            participants: newVal.participants || '',
             keyPoints: newVal.keyPoints || '',
             summary: newVal.summary || ''
           }
@@ -115,7 +120,7 @@ export default {
     submitForm() {
       const formData = {
         ...this.gameData,
-        playerCount: Number(this.gameData.playerCount),
+        playerCount: Number(this.gameData.playerCount) || 0,
         gameTime: new Date(this.gameData.gameTime).toISOString()
       };
       this.$emit('submit', formData)

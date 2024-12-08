@@ -42,20 +42,18 @@ export default createStore({
         gameName: record.gameName || '',
         mood: record.mood || '',
         playerCount: record.playerCount || 0,
-        players: record.players || '',
+        participants: record.participants || '',
         keyPoints: record.keyPoints || '',
         summary: record.summary || '',
         ...record
       };
       state.records.push(newRecord);
-      // 保存到 localStorage
       localStorage.setItem('gameRecords', JSON.stringify(state.records));
     },
     deleteRecord(state, id) {
       const index = state.records.findIndex(record => record.id === id);
       if (index !== -1) {
         state.records.splice(index, 1);
-        // 保存到 localStorage
         localStorage.setItem('gameRecords', JSON.stringify(state.records));
       }
     },
@@ -63,7 +61,6 @@ export default createStore({
       const index = state.records.findIndex(record => record.id === updatedRecord.id)
       if (index !== -1) {
         state.records[index] = { ...state.records[index], ...updatedRecord }
-        // 保存到 localStorage
         localStorage.setItem('gameRecords', JSON.stringify(state.records));
       }
     }

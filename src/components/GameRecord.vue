@@ -33,7 +33,7 @@ function formatDate(date) {
     
     <div class="record-field">
       <span class="field-label">玩家人数：</span>
-      <span>{{ record.players || '无' }}</span>
+      <span>{{ record.playerCount || '无' }}</span>
     </div>
     
     <div class="record-field">
